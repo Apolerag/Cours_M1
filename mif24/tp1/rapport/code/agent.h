@@ -12,9 +12,9 @@
 class Agent
 {
 private:
-    SystemeMotivationnel m_motivation;
-    int m_motivationScore;
-    QList<Interaction> m_trace;
+    SystemeMotivationnel m_motivation; //l'ensemble des motivations du système.
+    int m_motivationScore; //correspondont à la somme des résultats de toutes les experiences passées.
+    QList<Interaction> m_trace; //
     const Environnement& m_environnement;
     QMap<int, Experience> m_exp;
 
