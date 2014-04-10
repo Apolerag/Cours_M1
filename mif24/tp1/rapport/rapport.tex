@@ -1,4 +1,4 @@
-\documentclass[11pt]{article}
+  \documentclass[11pt]{article}
 \usepackage[french]{babel}
 
 \usepackage[utf8]{inputenc}
@@ -86,12 +86,36 @@
       
       Concrètement, deux interactions donnent un résultat positif et deux autres donne un résultat positif.
     \subsection{Attributs}
-    \lstinputlisting[caption={Attributs de la classe Agent},language=C++,frame=single,firstline=15, lastline=19]{code/agent.h}
+      
+      \lstinputlisting[caption={Attributs de la classe Agent},language=C++,frame=single,firstline=15, lastline=22]{code/agent.h}
+      \begin{description}
+	\item[m\_motivation] correspond au système de motivation de l'Agent tel qu'il a été décrit plus haut.	
+	\item[m\_motivationScore] est la somme cumulée de tous les résultats d'expériences.
+	\item[m\_trace] récupère toutes les effectuées par l'agent.
+	\item[m\_environnement] est l'environnement dans lequel l'Agent évolue.
+	\item[m\_exp] stocke les différentes expériences faite par l'Agent.
+      \end{description}
     \subsection{Constructeur\textbackslash{}Destructeur}
-    \lstinputlisting[caption={Constructeur et destructeur de l'agent},language=C++,frame=single,firstline=3, lastline=24]{code/agent.cpp}
+    
+    \lstinputlisting[caption={Constructeur et destructeur de l'Agent},language=C++,frame=single,firstline=3, lastline=23]{code/agent.cpp}
+    
+    \begin{description}
+	\item[Le constructeur] initialise l'environnement avec l'environnement passé en paramètre et le score de motivation à 0.
+	Il contrôle également le fichier trace.txt.
+	\item[Le Destructeur] est vide.
+      \end{description}
+    
+    
     \subsection{save()}
+    
+    \lstinputlisting[caption={Constructeur et destructeur de l'Agent},language=C++,frame=single,firstline=28, lastline=49]{code/agent.cpp}
+    
+    La fonction save() ajoute la dernière experience de l'agent dans le fichier trace.txt.
+    
     \subsection{chooseResult()}
+    
     \subsection{chooseExperience(const Resultat\& r)}
+    
     \subsection{addMotivation(const Interaction\& i)}
     
   \section{Agent 2}

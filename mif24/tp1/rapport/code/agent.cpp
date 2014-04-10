@@ -39,7 +39,8 @@ void Agent::save()
     QString toWrite;
     toWrite = "Experience: " + QString::number(it.experience().num()) + ", ";
     toWrite += "Resultat: " + QString::number(it.resultat().num()) + ", ";
-    toWrite += "Motivation: " + QString::number(it.motivation()) + ", Total = " + QString::number(m_motivationScore) + "\n";
+    toWrite += "Motivation: " + QString::number(it.motivation()) 
+    + ", Total = " + QString::number(m_motivationScore) + "\n";
 
     file.write(toWrite.toLatin1());
 
