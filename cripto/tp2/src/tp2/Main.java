@@ -18,16 +18,13 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        RSA r = new RSA(128, 0, new Random());
-
-        int p, q, d, e, N, FiN;
-        p = 103;
-        q = 109;
-        N = p * q;
-        FiN = (p - 1) * (q - 1);
-        e = p % (FiN - 1) + 1;
-        
-        System.out.println(e);
+        RSA r = new RSA(1024, 30, new Random());
+        String message = "123456789";
+        System.out.println("Le message est : " + message);
+        BigInteger message_crypte = r.chiffre(message);
+        String s = r.dechiffre(message_crypte);
+        System.out.println("Le message cripté est : " + message_crypte);
+        System.out.println("Le message décripté est : " + s);
 
     }
 }
