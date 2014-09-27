@@ -1,0 +1,53 @@
+LLVM_Based_CFGDumper: 
+	fabrique le CGF des différentes fonctions du code étudié
+
+LLVM_Based_CFGExplorer: 
+	fabrique le CFG.
+	visite le CFG:
+		controle les tableau et les pointeurs
+
+LLVM_Based_ConstPtrPrinter:
+foreach function in code étudié
+	analyses des pointeurs =>
+
+# PointerInfo: name [ParmVar] or [Declared]
+|- last target: 
+|- is const: yes or no
+	if no => code
+|- is incremented or decremented:  yes or no
+        if no => code
+`- is d
+ereferenced:  yes or no
+        if no => code
+
+LLVM_Based_PtrAliasing:
+CFG + controle Ptr
+
+=> nom
+
+=> Points-to & Pointed-by Matrix: (M)
+
+1 ptr ligne pointe sur ptr colonne
+0 no
+
+=> # Symetrical Matrix:
+  
+if (M[i][j] = 1) M[j][i] = 1
+
+=> # Aliases Matrix:
+
+if(M[i][j] == 1 && M[j][k] == 1) M[i][k] = 1
+
+
+LLVM_Based_PtrAnalyze:
+
+pareil que LLVM_Based_ConstPtr ?
+
+LLVM_Based_Rewriter:
+
+réécrit le code en ajoutant des { } pour les if et boucle
+si #define A() B et B dans le code, B est remplacé par A()
+
+LLVM_Based_TokenDumper
+
+décompose le code ( '(';'[';'identtifiant'; '*',...) 

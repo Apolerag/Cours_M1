@@ -1,0 +1,6 @@
+pdflatex nomdupointex.tex
+bibtex pdflatex nomdupointex
+pdflatex nomdupointex.tex
+pdflatex nomdupointex.tex
+
+Rque : pas de bibtex supplémentaire si biblio non modifiée.

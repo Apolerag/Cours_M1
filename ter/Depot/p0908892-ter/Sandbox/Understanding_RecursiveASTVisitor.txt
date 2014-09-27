@@ -1,0 +1,25 @@
+# From RecursiveASTVisitor.h (clang/include/AST)
+
+This class performs three distinct tasks:
+   1. traverse the AST (i.e. go to each node);
+   2. at a given node, walk up the class hierarchy, starting from
+      the node's dynamic type, until the top-most class (e.g. Stmt,
+      Decl, or Type) is reached.
+   3. given a (node, class) combination, where 'class' is some base
+      class of the dynamic type of 'node', call a user-overridable
+      function to actually visit the node.
+
+ These tasks are done by three groups of methods, respectively:
+   1. TraverseDecl(Decl *x) does task #1.  It is the entry point
+      for traversing an AST rooted at x.  This method simply
+      dispatches (i.e. forwards) to TraverseFoo(Foo *x) where Foo
+      is the dynamic type of *x, which calls WalkUpFromFoo(x) and
+      then recursively visits the child nodes of x.
+      TraverseStmt(Stmt *x) and TraverseType(QualType x) work
+      similarly.
+   2. WalkUpFromFoo(Foo *x) does task #2.  It does not try to visit
+      any child node of x.  Instead, it first calls WalkUpFromBar(x)
+      where Bar is the direct parent class of Foo (unless Foo has
+      no parent), and then calls VisitFoo(x) (see the next list item).
+   3. VisitFoo(Foo *x) does task #3.
+

@@ -1,0 +1,76 @@
+\ProvidesPackage{beamerthemeJLTreeLaure2}
+
+%% this is version 1.1 2006/11/18
+
+%% Copyright Jerome LELONG <jerome.lelong@gmail.com> 2006
+%% This program can be redistributed and/or modified under the terms
+%% of the GNU Public License, version 2 or later.
+%% modifby lg
+
+\newif\ifbeamer@tree@showhooks
+\beamer@tree@showhookstrue
+
+\DeclareOptionBeamer{hooks}[true]{\csname beamer@tree@showhooks#1\endcsname}
+
+\ProcessOptionsBeamer
+\mode
+<presentation>
+
+\setbeamertemplate{navigation symbols}{}
+\usecolortheme{rose} 
+\useinnertheme[shadow=true]{rounded}% les blocks
+\useoutertheme{infolines}
+
+\defbeamertemplate*{footline}{JLTreeLaure2 theme}
+{
+  \begin{beamercolorbox}[colsep=1.5pt]{upper separation line foot}
+  \end{beamercolorbox}
+  \hbox{%
+        \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+          \usebeamerfont{author in head/foot}\insertshortauthor~~(\insertshortinstitute)
+        \end{beamercolorbox}%
+        \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+          \usebeamerfont{title in head/foot}\insertshorttitle
+        \end{beamercolorbox}%
+        \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}%
+          \usebeamerfont{date in head/foot}\insertshortdate{}\hspace*{2em}
+          \hyperlinkframeendprev{$\twoheadleftarrow$ }\hyperlinkframeend{\insertframenumber{}} /
+          \inserttotalframenumber\hyperlinkframestartnext{ $\twoheadrightarrow$}\hspace*{2ex}
+        \end{beamercolorbox}}%
+}
+
+
+\defbeamertemplate*{sidebar right}{JLTreeLaure2 theme}{}
+
+\usesectionheadtemplate
+{\hfil\insertsectionhead}
+{\hfill\color{fg!50!bg}\insertsectionhead}
+
+
+\usesubsectionheadtemplate
+{\hfil\insertsubsectionhead}
+{\hfill\color{fg!50!bg}\insertsubsectionhead}
+
+
+%provient de infolines
+\defbeamertemplate*{headline}{JLTreeLaure2 theme}
+{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=.5\paperwidth,ht=2.25ex,dp=1ex,right]{section in head/foot}%
+    \usebeamerfont{section in head/foot}\insertsectionhead\hspace*{2ex}
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.5\paperwidth,ht=2.25ex,dp=1ex,left]{subsection in head/foot}%
+    \usebeamerfont{subsection in head/foot}\hspace*{2ex}\insertsubsectionhead
+  \end{beamercolorbox}}%
+\vfill
+\begin{beamercolorbox}[colsep=1.5pt]{upper separation line foot}
+  \end{beamercolorbox}
+  \vskip0pt%
+}
+
+\setbeamercolor{separation line}{use=structure,bg=structure.fg!50!bg}
+
+
+\mode
+<all>

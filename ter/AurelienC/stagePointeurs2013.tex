@@ -1,0 +1,133 @@
+\documentclass[a4paper,10pt]{article}
+\usepackage[utf8x]{inputenc}
+\usepackage{float}
+
+
+%%%%%%%%%%% PACKAGES %%%%%%%%%%%%%%%%%%%
+
+\usepackage[headinclude,footexclude]{typearea}
+
+\usepackage{fullpage}
+\usepackage[english,frenchb]{babel}
+\usepackage[final]{graphicx}
+\usepackage{scrpage2,lastpage,tikz,url}
+
+\newcommand{\logos}{%
+  \begin{tikzpicture}[remember picture,overlay]
+    \node [yshift=-1cm] at (current page.north) [below] 
+      {\includegraphics[height=15mm]{logo_lip}%\hspace*{1cm}
+%\includegraphics[height=15mm]{logoverimag}
+
+};
+ \end{tikzpicture}}
+\newcommand{\adresse}{%
+  \begin{tikzpicture}[remember picture,overlay]
+    \node [yshift=1cm] at (current page.south) [above] 
+       {\begin{tabular}{c}
+
+        \textsf{\textup{\color{blue}
+          LIP -- UMR CNRS / ENS Lyon / UCB Lyon 1 / INRIA -- 69007
+          Lyon
+        }}\\
+        \textsf{\textup{\color{blue}
+         %- +33 (0)3 59 57 78 24
+         % -- Fax. : +33 (0)3 28 77 85 37
+          Contact E-mail : Laure.Gonnord@ens-lyon.fr
+        }}
+      \end{tabular}};
+ \end{tikzpicture}}
+
+
+
+%%%%%%%%%%%%%%%%%%% TITRE
+
+
+\ohead[]{Analyses ``légères'' de pointeurs pour programmes C et
+  tranformation de programmes}
+\chead[]{}
+\ihead[]{Laure Gonnord}
+\ofoot[]{\thepage/\pageref{LastPage}}
+\cfoot[]{}
+\pagestyle{scrheadings}
+
+
+\title{Proposition de Stage de Recherche:\\
+Analyses ``légères'' de pointeurs pour programmes C}
+\author{Laure Gonnord -- Maître de conférences Université Lyon1\\
+%  co-encadrement Paul Feautrier -- Professeur Émérite Éns Lyon \\
+% Membre de l'équipe Émeraude (CNRS/LIFL)\\
+% Membre extérieur de l'équipe COMPSYS (INRIA/Éns Lyon/LIP)\\
+%\url{Laure.Gonnord@ens-lyon.fr}
+}
+\date{}
+
+%%%%MACROS ICI
+
+\begin{document}
+\maketitle
+\logos \adresse
+
+\section{Contexte}
+
+L'avancée technologique des plateformes matérielles, avec des
+caractéristiques toujours plus complexes, rend nécessaire des analyses
+toujours plus fines du code source, que ce soit pour des buts
+d'optimisation à la compilation (optimisation de taille mémoire, de
+l'usage du cache\ldots) ou d'optimisations lors de l'exécution. 
+\medskip
+
+L'équipe Compsys a une expérience dans la transformation de programme
+source à source, mais les programmes traités sont un noyau de
+C. Nous désirons donc élargir le domaine d'applicabilité de nos
+analyses, et en particulier travailler sur les représentations
+alternatives des tableaux en C.
+
+\medskip
+En effet, on constate souvent que les pointeurs ne sont utilisés -en
+C- que de façon rudimentaire~:
+\begin{itemize}
+\item transmission d'arguments par adresses
+\item allocation dynamique de tableaux
+\item descripteurs de tableaux
+\item pseudo-indices.
+\end{itemize}
+
+
+\section{Objectif}
+L'objectif est donc de réaliser un outil de détection de ces usages
+simples et de transformer le programme initial en un programme
+\emph{sémantiquement} équivalent qui sera ensuite utilisé comme entrée
+de nos analyseurs, par exemple du genre de l'outil 
+\texttt{c2fsm} \cite{FeautrierGonnord:tapas10}
+qui transforme le programme en un automate interprété. 
+
+\medskip Durant son stage de L3, C. Bacara a démarré une
+implémentation à l'aide du framework
+Clang/LLVM~\footnote{\url{llvm.org}}. Le résultat \footnote{Le rapport
+  de stage se trouve à
+  l'adresse~\url{http://laure.gonnord.org/pro/papers/rapportBacara.pdf}}
+est un stockage dans une structure de données d'un certain nombre
+d'informations concernant les pointeurs du programme (pointeurs
+constants, pointeurs ``cachant'' des tableaux). Le stagiaire reprendra
+cette implémentation, et après d'éventuelles améliorations,
+s'attachera à coder la partie ``transformation de programme'', à
+l'aide des outils disponibles dans le framework. À cette occation de
+nombreux benchmarks seront réalisés.
+
+\section{Prérequis}
+
+Bonnes connaissances en C et en théorie de la compilation. Une
+familiarité avec LLVM et son langage d'implémentation (C++) serait
+appréciée.
+
+% \section{Mots-clefs}
+% Analyse statique de programmes C, interprétation abstraite, pointeurs,
+% modèle mémoire, compilation source à source, LLVM.
+
+
+
+\bibliographystyle{unsrt}
+{\scriptsize \bibliography{bibStage}}
+
+
+\end{document}

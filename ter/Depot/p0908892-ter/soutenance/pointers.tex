@@ -1,0 +1,157 @@
+\documentclass{beamer}
+
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+\usepackage{fancybox}
+\usepackage{multicol}
+\usepackage{multirow}
+%\usepackage{color}
+\usepackage{xcolor}
+\usepackage{bm}
+\usepackage{url}
+\usepackage{fancyvrb}
+\usepackage{moreverb}
+\usepackage{wasysym,tikz}
+\usetikzlibrary{arrows}
+
+\graphicspath{{logos/}{figs/}}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
+
+\usepackage{xspace}
+\usepackage{yfonts}
+\usepackage[noload]{qtree}
+\usepackage{helvet}
+\usetheme{JLTreeLaure2}
+\usefonttheme[onlymath]{serif} %% Indipensable !
+
+\usepackage{subfig}
+\usepackage{listings}
+\lstset{language=C,firstnumber=auto,numbers=left,numberstyle=\tiny,basicstyle=\small,escapeinside=`',numbersep=3pt}
+
+\definecolor{orange2}{rgb}{0.81, 0.41, 0.00}
+\definecolor{vert3}{rgb}{0.00, 0.50, 0.00}
+
+
+\newcommand{\keyword}[1]{{\bf {\textcolor{vert3}{#1}}}}
+\setbeamercolor{alerted text}{fg=vert3}
+
+\newcommand{\dis}{\displaystyle}
+\newcommand{\vphi}{\varphi}
+
+
+\newcommand{\Frac}[2]{\displaystyle{#1\over#2}}
+
+\newcommand{\tr}[1]{{\textcolor{red}{#1}}}
+\renewcommand{\AA}{{\cal A}}
+
+\renewcommand{\leq}{\leqslant}
+\renewcommand{\geq}{\geqslant}
+
+%Machins de Mathieu :
+%gris dans la TDM.
+  \setbeamertemplate{section in toc shaded}[default][50]
+% vrai strip-tease, pas de demi-gris
+  \setbeamercovered{invisible}                                                 
+%%MM : pas de fonds pour le titre -- marche bizarrement
+\setbeamertemplate{frametitle}[center]
+
+
+% OpÃ©rateurs
+\newcommand{\widening}{\triangledown}
+
+% Vecteurs
+\newcommand{\ve}[1]{\bm{#1}}
+\newcommand{\vx}{\ve{x}}
+\newcommand{\vp}{\ve{p}}
+\newcommand{\vxp}{\ve{x}\,'}
+\newcommand{\vy}{\ve{y}}
+\newcommand{\vyp}{\ve{y}\,'}
+\newcommand{\vl}{\ve{\lambda}} 
+\newcommand{\vm}{\ve{\mu}} 
+
+
+\newcommand{\acc}[1]{#1^\otimes}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\TT}{\mathcal{T}}
+\newcommand{\PP}{\mathcal{P}}
+\newcommand{\g}[1]{«~#1~»}
+
+\renewcommand{\b}[1]{\,\overline{#1}\,}
+\newcommand{\mys}[1]{{\tiny #1}}
+
+
+\newcommand{\trans}{{\cal T}}
+\newcommand{\invariant}{{\cal P}}
+\newcommand{\calK}{\mathcal{K}}
+\newcommand{\reach}{{\cal R}}
+
+%%--
+
+
+%----------
+%--------- Titre et bidouilles internes by MM
+
+
+
+%%%% trucs de Florence pour afficher le contenu des sections
+
+ \AtBeginSection[] % Do nothing for \section*
+ {
+   \begin{frame}<beamer>
+     \tableofcontents[currentsection,hidesubsections,hideothersubsections]
+   \end{frame}
+ }
+
+ \AtBeginSubsection[] 
+ {
+   \begin{frame}<beamer>
+     \tableofcontents[currentsection,currentsubsection,hideothersubsections,hideothersections]
+   \end{frame}
+ }
+                  
+\lstset{
+language=C,
+basicstyle=\ttfamily\small, %
+identifierstyle=\color{black}, %
+keywordstyle=\color{blue}, %
+stringstyle=\color{blue}, %
+commentstyle=\it\color{green}, %
+}
+
+%%%% trucs de mathias pour supprimer la moche barre de navigation 
+%\setbeamercovered{transparent}
+\setbeamertemplate{navigation symbols}{}
+
+\setbeamersize{text margin left=1cm,text margin right=1cm}
+
+\newcommand{\btriangle}{{\color{structure.fg!80!structure.bg}{$\blacktriangleright$\ }}}
+\newcommand{\bleu}[1]{\textcolor{blue}{#1}}
+\newcommand{\rouge}[1]{{\textcolor{red}{#1}}}
+
+
+
+\newcommand{\tikztrans}[3]{\begingroup
+\renewcommand*{\arraystretch}{0.85}
+\bm{#1} : 
+\frac{\begin{array}{l}
+#2
+\end{array}
+}{
+\begin{array}{l}
+#3
+\end{array}}
+\endgroup}
+
+\tikzstyle{state}=[draw,circle,inner sep=0pt,minimum size=0.9cm]
+\tikzstyle{trans}=[midway,font=\small]
+\tikzstyle{loopleft}=[in=160,out=200,looseness=1,loop]
+\tikzstyle{loopright}=[in=-20,out=20,looseness=1,loop]
+
+
+\input{content.tex}
+
+\end{document}

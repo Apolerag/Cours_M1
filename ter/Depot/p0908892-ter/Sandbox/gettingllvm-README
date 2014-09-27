@@ -1,0 +1,22 @@
+# Auteur: Bacara Christophe
+# Ce fichier est un script shell. Vous devez l'executer dans le repertoire dans lequel vous souhaitez installer llvm.
+
+# Recuperation de LLVM
+svn co http://llvm.org/svn/llvm-project/llvm/trunk llvm
+# Recuperation de Clang
+svn co http://llvm.org/svn/llvm-project/cfe/trunk clang
+
+# Creation d'un repertoire de build
+mkdir llvm-build
+cd llvm-build
+
+# Configuration
+../llvm/configure --enable-debug-runtime
+
+# Compilation
+make
+
+#compil de clang
+#mettre le répertoire source dans le rep de sources de llvm : llvm/tools/clang
+#puis relancer le make du répertoire llvm-build
+make

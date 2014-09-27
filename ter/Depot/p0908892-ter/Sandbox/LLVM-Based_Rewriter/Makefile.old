@@ -1,0 +1,44 @@
+CXX := clang++
+RTTIFLAG := -fno-rtti
+LLVMCOMPONENTS := cppbackend
+LLVMCONFIG := llvm-config
+CLANG_PATH := tools/clang/include
+CLANG_H := \
+	-I$(shell $(LLVMCONFIG) --src-root)/$(CLANG_PATH) \
+	-I$(shell $(LLVMCONFIG) --obj-root)/$(CLANG_PATH)
+CXXFLAGS := $(CLANG_H) $(shell $(LLVMCONFIG) --cxxflags) $(RTTIFLAG)
+LLVMLDFLAGS := $(shell $(LLVMCONFIG) --ldflags --libs $(LLVMCOMPONENTS))
+
+SRC = rewriter.cpp 
+OBJ = $(SRC:.cpp=.o)
+BIN = $(OBJ:.o=)
+
+CLANG_LIBS = \
+	-lclangTooling \
+	-lclangFrontendTool \
+	-lclangFrontend \
+	-lclangDriver \
+	-lclangSerialization \
+	-lclangCodeGen \
+	-lclangParse \
+	-lclangSema \
+	-lclangStaticAnalyzerFrontend \
+	-lclangStaticAnalyzerCheckers \
+	-lclangStaticAnalyzerCore \
+	-lclangAnalysis \
+	-lclangARCMigrate \
+	-lclangRewriteFrontend \
+	-lclangRewriteCore \
+	-lclangEdit \
+	-lclangAST \
+	-lclangLex \
+	-lclangBasic \
+	$(shell llvm-config --libs)
+
+all: $(OBJ) $(BIN)
+
+%: %.o
+	$(CXX) -o $@ $< $(CLANG_H) $(CLANG_LIBS) $(LLVMLDFLAGS)
+
+clean:
+	-rm -f $(BIN) $(OBJ) *~ *_out*

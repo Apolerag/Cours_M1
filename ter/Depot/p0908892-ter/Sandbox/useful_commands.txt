@@ -1,0 +1,10 @@
+Pour generer du code intermediaire LLVM:
+
+clang -cc1 -emit-llvm foo.c
+(Genere un fichier foo.ll contenant le LLVM IR)
+
+Par defaut, il n'y a pas d'optimisation. Il faut rajouter un parametre a clang au moment de la compilation: -OX, ou X est un chiffre. Voir la difference entre les fichiers generes par clang, clang -O1, clang -O2, etc..
+
+# Compiler du code intermediaire LLVM en ASM:
+(llc est un outil integre a LLVM)
+llc foo.ll

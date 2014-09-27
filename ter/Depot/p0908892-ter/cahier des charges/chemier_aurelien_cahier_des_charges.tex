@@ -1,0 +1,113 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[]{amsmath,amsfonts,theorem,amssymb,stmaryrd}
+\usepackage[french]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{verbatim}
+\usepackage{url}
+\usepackage{fancyheadings}
+\makeatletter
+\fancyhead[R]{Analyses de pointeurs dans LLVM}
+\fancyhead[C]{}
+\fancyhead[L]{Chemier Aurélien}
+
+
+\title{\textbf{MIF20 Projet De Recherche} \\  
+\textbf {Analyses de pointeurs dans LLVM} } 
+\author{Aurélien Chemier}
+\date{}
+
+
+\begin{document}
+\pagestyle{fancy}
+\makeatletter
+\maketitle
+
+\tableofcontents
+\newpage
+
+\section{Contexte du projet de recherche}
+
+Le projet de recherche a été proposé par Laure Gonnord qui travaille au Laboratoire de l'Informatique du Parallélisme.
+
+Le calcul scientifique, qui sert notamment à effectuer diverses simulations (météorologiques, physiques), ainsi qu'à analyser de grandes quantités de données, occupe une part importante de la recherche informatique actuellement.
+Il est donc crucial d'améliorer le temps d'exécution des calculs, ainsi que de diminuer les ressources nécessaires pour ce calcul. 
+ Un certain nombre d'optimisations peuvent être réalisées statiquement (à la
+compilation), notamment en utilisant un cadre formel appelé
+\emph{modèle polyédrique} (voir la section \ref{sec:poly}). 
+
+Nous reprenons pour cela un travail existant, celui réalisé par C. Bacara pendant son stage de L3 à
+Lille\footnote{\url{http://laure.gonnord.org/pro/papers/rapportBacara.pdf}}
+ à l'aide du framework Clang/LLVM (voir la section \ref{LLVM}) qui est un compilateur C à C\footnote{Un compilateur C à C prend un code C en entrée et délivre en sortie un autre code C. LLVM peut également générer de l'assembleur.}.
+ 
+L'objectif sera donc de reprendre l'implémentation de C. Bacara, et après d'éventuelles améliorations, de développer une analyse de pointeurs précise  mais à faible coût, qui sera utilisée comme phase préliminaire à d'autres analyses et optimisations , à l'aide des outils disponibles dans le framework.
+\`A cette occasion de nombreux jeux de tests seront réalisés.
+
+
+Le projet de recherche se déroulera au Laboratoire de l'Informatique du Parallélisme sous la direction de Laure Gonnord.
+
+\section{Aspect technique}
+
+\subsection{Modèle polyédrique}
+\label{sec:poly} 
+Le modèle polyédrique est un modèle mathématique de représentation de boucles imbriquées. 
+Dans ce modèle, les bornes de boucles \emph{for} sont des fonctions affines des indices des boucles englobantes, et les fonctions d'accès aux tableaux sont aussi des fonctions affines des indices de boucles. 
+Sous cette  restriction, on est en mesure de représenter les espaces d'itérations (nids de boucles) par des polyèdres, ainsi que les dépendances de données entre différentes \emph{instructions} du programme.
+Certaines optimisations (parallélisation automatique, amélioration de placement mémoire) sont alors possibles.
+
+Les analyses polyédriques sont restreintes syntaxiquement et ne sont pas applicables à un
+programme C quelconque facilement. elles ont pour objectif d'optimiser le traitement des tableaux .
+
+\subsection{LLVM}
+
+\label{LLVM}
+Le projet LLVM\footnote{\url{http://llvm.org}} est né en 2000 à l'Université de l'Illinois, sous la direction de Chris Lattner et Vikram Adve. 
+Il s'agit d'une infrastructure de compilateur, fondée sur une représentation intermédiaire du code, de type SSA
+\footnote{\textit{Single-Static Assignment}, représentation intermédiaire de code source dans laquelle chaque variable n'est assignée qu'une fois.}
+, conçue pour l'optimisation d'un programme à tous les niveaux (compilation, édition de liens, exécution). 
+LLVM est composé de librairies qui permettent de raisonner/Manipuler le code
+A l'origine, l'implémentation concernait les langages C et C++, mais il existe désormais une grande variétés de \bsc{front-end} 
+\footnote{Passes de compilation qui effectuent l'analyse
+lexicale et syntaxique de la source en entrée afin de la transformer en représentation intermédiaire, nécessaire à la suite du processus de compilation (optimisation, édition de liens, ...) } 
+: Ruby, Python,Java, PHP, et Fortran, parmi d'autres.
+
+LLVM contient nombre d'optimisations, ainsi que des générateurs de code pour de nombreux processeurs. LLVM est diffusé sous licence University Of Illinois Open Source, licence de type BSD. LLVM est codé en C++. 
+
+
+\subsection{Clang}
+
+Clang (codé en C++) et est le \bsc{front-end} de LLVM. C'est
+celui qui est chargé de faire les analyses lexicales et syntaxiques, de
+construire l'arbre de syntaxe abstrait du programme, et de le convertir en code
+intermédiaire, compréhensible par LLVM.
+
+
+\section{Besoins du projet}
+
+Ce projet de recherche arrive à la suite du Stage de L3 de 
+C. Bacara qui a commencé une implémentation à l'aide du framework Clang/LLVM. 
+Son rapport va servir de base au projet.
+
+L'analyse actuelle utilise le \bsc{front-end} clang et des
+analyses ad-hoc pour calculer des informations sur les pointeurs du programme.
+Le résultat actuel est un stockage dans une structure de données d'un certain nombre d'informations concernant les pointeurs du programme
+(pointeurs constants, pointeurs cachant des tableaux\footnote{Pointeur indiquant l'adresse de la première case d'un tableau.}). 
+
+\`A la fin de la recherche, l'objectif est de regénérer un C débarasser des pointeurs inutiles.
+
+
+\section{Calendrier prévisionnel}
+
+Le stage se découpe en trois parties de 2 semaines:
+
+\begin{enumerate}
+\item \textbf{Prise en main} : lire le rapport de C. Bacara, installer llvm , faire des exemples classiques,installer le code existant et comprendre ce qui est fait. Enfin, trouver une caractérisation de l'ensemble des programmes pouvant être optimisés \emph{avec le modèle polyédrique}(indépendances des instructions dans les boucles\footnote{Deux instructions sont indépendantes quand les variables d'une instruction ne sont ni modifiées, ni utilisées par l'autre instruction.} ... ).
+
+\item \textbf{Algorithmique}: c'est une étude en profondeur: quelles infos sont calculées par le code et comment.
+Nous étudirons le cas où les pointeurs sont des tableaux déguisés (statiques).
+
+\item \textbf{Code}: l'implémentation du code et des tests (tests minimals ,tests de LLVM\footnote{\url{http://llvm.org/docs/TestingGuide.html}} (tests fonctionnels) et des tests spécifiques aux optimisations (polyBench)).
+
+\end{enumerate}
+
+\end{document}

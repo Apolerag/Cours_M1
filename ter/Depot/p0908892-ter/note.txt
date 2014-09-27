@@ -1,0 +1,80 @@
+transformation  de programme
+
+ast -> replace
+changement dans l'ast //trouver où ca se trouve 
+
+par defaut les fonctions exemples sont des fonction de parcours sans effet de bord.
+
+compile -g breakpoint 
+
+dans LLVm parcours caché
+pratique si fonction spécifique 
+plus compliqué globalement
+
+si qqchose pas courant , c'est dur
+
+
+écrire analyse code  "simple" car on a les fonction d'accès
+
+transformation plus compliqué: 
+	outils shell "bidouille", pas ce qu'on veut
+	modifié structure interne plus compliqué
+	
+	modifié à l'impression du programme (ce qui est fait).
+
+si on veut changé modifié à un endroit (doc).
+! trouver new statement
+
+
+transformation que l'on veut faire.
+ 
+INtro
+
+1 analyse statique
+2 transforamtion code 
+
+Avec ces infos je peut faire exemple.
+
+
+pointeur constant sur entier
+p = malloc p[i]
+parcours de p p+i p++
+
+montré que structure que christophe me permet de le faire.
+decrire algo
+
+implementation explique choix.
+
+ecrire que pas logiciel en produrion (en dev) open source cllaboratif.
+n'aide pas code source 
+
+
+différence avec cahier des charges
+
+
+Exemple de figure pdf/jpg, etc
+
+\begin{figure}[H]
+  \centering
+  \includegraphics{lyon1.jpg} 
+  \caption{Jolie figure}
+  \label{fig:monlabl}
+\end{figure}
+
+Et voilà un exemple d'inclusion de fichier c : 
+
+\lstinputlisting[caption={Titre du listing},language=C,frame=single]{toto.c}
+et uniquement qq lignes
+
+\lstinputlisting[language=C,firstline=2, lastline=4]{toto.c}
+
+Exemple inclusion image
+ \begin{center}
+     \includegraphics[scale=0.25]{smiley-triste-150x150.png}
+ \end{center}
+\end{frame}
+
+
+\begin{frame}\frametitle{Limitations}
+  
+  \begin{itemize}
